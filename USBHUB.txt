@@ -1,0 +1,64 @@
+                                                                                 local s=Instance.new( 
+                                                                        "ScreenGui",game.CoreGui);s.Name="USBHubUI";    
+                                                                    local m=Instance.new("Frame",s);m.Size=UDim2.new(0,280,0,295) 
+                                                                ;m.Position=UDim2.new(0.5, -140,0.5, -147);m.BackgroundColor3=Color3.   
+                                                            fromRGB(0,0,0);m.BackgroundTransparency=0;m.Draggable=true;m.Active=true;     
+                                                          local c=Instance.new("UICorner",m);c.CornerRadius=UDim.new(0,14);local st=        
+                                                        Instance.new("UIStroke",m);st.Color=Color3.fromRGB(0,162,255);st.Thickness=2;local    
+                                                      glowGrad=Instance.new("UIGradient",st);glowGrad.Color=ColorSequence.new({                 
+                                                    ColorSequenceKeypoint.new(0,Color3.fromRGB(0,162,255)),ColorSequenceKeypoint.new(0.5,Color3.  
+                                                  fromRGB(255,255,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,162,255))});task.spawn(        
+                                                  function() local rot=0;while task.wait(0.03) do rot=(rot + 2)%360 ;glowGrad.Rotation=rot;end end);  
+                                                local lockBtn=Instance.new("TextButton",m);lockBtn.Size=UDim2.new(0,30,0,30);lockBtn.Position=UDim2.new 
+                                                (1, -38,0,8);lockBtn.BackgroundColor3=Color3.fromRGB(30,30,38);lockBtn.TextColor3=Color3.fromRGB(255,255, 
+                                              255);lockBtn.TextSize=14;lockBtn.Font=Enum.Font.GothamBold;lockBtn.Text="🔓";lockBtn.ZIndex=5;local lbc=      
+                                              Instance.new("UICorner",lockBtn);lbc.CornerRadius=UDim.new(0,6);local lbst=Instance.new("UIStroke",lockBtn);  
+                                            lbst.Color=Color3.fromRGB(60,60,75);local isLocked=false;lockBtn.MouseButton1Click:Connect(function() isLocked=   
+                                            not isLocked;m.Draggable= not isLocked;if isLocked then lockBtn.Text="🔒";lockBtn.BackgroundColor3=Color3.fromRGB(  
+                                          200,50,50);else lockBtn.Text="🔓";lockBtn.BackgroundColor3=Color3.fromRGB(30,30,38);end end);local i=Instance.new(      
+                                          "ImageLabel",m);i.Size=UDim2.new(0,75,0,47);i.Position=UDim2.new(0,0,0,12);i.BackgroundColor3=Color3.fromRGB(5,5,5);i.    
+                                          BackgroundTransparency=0;i.ScaleType=Enum.ScaleType.Crop;local ic=Instance.new("UICorner",i);ic.CornerRadius=UDim.new(0,8); 
+                                          task.spawn(function() local fn="usb_img.png";if  not isfile(fn) then writefile(fn,game:HttpGet(                             
+                                        "https://i.postimg.cc/gct53tnx/file-USBHUB.png"));end i.Image=getcustomasset(fn);end);local t=Instance.new("TextLabel",m);t.    
+                                        Size=UDim2.new(0,155,0,35);t.Position=UDim2.new(0,82,0,12);t.         --[[==============================]]BackgroundTransparency= 
+                                        1;t.TextColor3=Color3.fromRGB(255,255,255);t.TextSize=22;t. --[[============================================]]Font=Enum.Font.     
+                                        GothamBold;t.Text="USB HUB";t.TextXAlignment=Enum.      --[[======================================================]]TextXAlignment. 
+                                      Left;local ts=Instance.new("UIStroke",t);ts.Color=    --[[==========================================================]]Color3.fromRGB(   
+                                      255,255,255);ts.Thickness=0.4;local subT=Instance.  --[[==============================================================]]new("TextLabel" 
+                                      ,m);subT.Size=UDim2.new(0,155,0,22);subT.Position=  --[[================================================================]]UDim2.new(0,82, 
+                                      0,45);subT.BackgroundTransparency=1;subT.TextColor3 --[[==================================================================]]=Color3.      
+                                      fromRGB(0,162,255);subT.TextSize=13;subT.Font=Enum. --[[==================================================================]]Font.GothamBold   
+                                    ;subT.Text="DVE: Radelnacey210";subT.TextXAlignment=  --[[====================================================================]]Enum.         
+                    TextXAlignment.Left;local btn=Instance.new("TextButton",m);btn.Size=  --[[====================================================================]]UDim2.new(0,256 
+              ,0,42);btn.Position=UDim2.new(0,12,0,90);btn.BackgroundColor3=Color3.       --[[======================================================================]]fromRGB(0,120 
+            ,215);btn.TextColor3=Color3.fromRGB(255,255,255);btn.TextSize=15;btn.Font=    --[[======================================================================]]Enum.Font.    
+          GothamBold;btn.Text="เครื่องต่อย 👊🏼";local bnc=Instance.new("UICorner",btn);  --[[======================================================================]]bnc.          
+        CornerRadius=UDim.new(0,8);btn.MouseButton1Click:Connect(function() local p=game. --[[======================================================================]]Players.      
+        LocalPlayer;local char=p.Character;if (char and char:FindFirstChild(              --[[======================================================================]]              
+      "HumanoidRootPart")) then local targetPos=CFrame.new(498,174,34) * CFrame.Angles(0, --[[======================================================================]]math.rad( -90 
+      ),0) ;char.HumanoidRootPart.CFrame=targetPos;end end);local tb=Instance.new("TextBox" --[[==================================================================]],m);tb.Size=    
+      UDim2.new(0,160,0,34);tb.Position=UDim2.new(0,12,0,140);tb.BackgroundColor3=Color3.   --[[================================================================]]fromRGB(20,20,25) 
+    ;tb.TextColor3=Color3.fromRGB(255,255,255);tb.TextSize=14;tb.Font=Enum.Font.GothamBold; --[[==============================================================]]tb.Text="1";tb.   
+    ClearTextOnFocus=false;local tbc=Instance.new("UICorner",tb);tbc.CornerRadius=UDim.new(0, --[[==========================================================]]8);local tbst=      
+    Instance.new("UIStroke",tb);tbst.Color=Color3.fromRGB(0,120,215);tbst.Thickness=1;local     --[[====================================================]]smBtn=Instance.new(     
+    "TextButton",m);smBtn.Size=UDim2.new(0,84,0,34);smBtn.Position=UDim2.new(0,184,0,140);smBtn.  --[[==============================================]]BackgroundColor3=Color3.  
+    fromRGB(200,50,50);smBtn.TextColor3=Color3.fromRGB(255,255,255);smBtn.TextSize=12;smBtn.Font=Enum --[[====================================]].Font.GothamBold;smBtn.Text=  
+    "รีตัวเลข";local smc=Instance.new("UICorner",smBtn);smc.CornerRadius=UDim.new(0,8);local sliderBg=    --[[========================]]Instance.new("Frame",m);sliderBg.Size 
+    =UDim2.new(0,256,0,16);sliderBg.Position=UDim2.new(0,12,0,184);sliderBg.BackgroundColor3=Color3.fromRGB(20,20,25);local sbc=Instance.new("UICorner",sliderBg);sbc.      
+  CornerRadius=UDim.new(0,4);local sbst=Instance.new("UIStroke",sliderBg);sbst.Color=Color3.fromRGB(40,40,50);local sliderFill=Instance.new("Frame",sliderBg);sliderFill. 
+  Size=UDim2.new(0,0,1,0);sliderFill.BackgroundColor3=Color3.fromRGB(0,120,215);local sfc=Instance.new("UICorner",sliderFill);sfc.CornerRadius=UDim.new(0,4);local      
+  sliderBtn=Instance.new("TextButton",sliderBg);sliderBtn.Size=UDim2.new(0,14,1,0);sliderBtn.Position=UDim2.new(0,0,0,0);sliderBtn.BackgroundColor3=Color3.fromRGB(255,   
+  255,255);sliderBtn.Text="";local sbtnc=Instance.new("UICorner",sliderBtn);sbtnc.CornerRadius=UDim.new(0,4);local punchBtn=Instance.new("TextButton",m);punchBtn.Size=   
+  UDim2.new(0,256,0,38);punchBtn.Position=UDim2.new(0,12,0,212);punchBtn.BackgroundColor3=Color3.fromRGB(0,120,215);punchBtn.TextColor3=Color3.fromRGB(255,255,255);      
+  punchBtn.TextSize=14;punchBtn.Font=Enum.Font.GothamBold;punchBtn.Text="ต่อย 👊🏼";local pbnc=Instance.new("UICorner",punchBtn);pbnc.CornerRadius=UDim.new(0,8);local    
+  minVal,maxVal=1,1000000000;local currentVal=1;local uis=game:GetService("UserInputService");local dragging=false;local function updateValue(val) val=math.clamp(math.   
+  floor(val),minVal,maxVal);currentVal=val;tb.Text=tostring(val);local ratio=(val-minVal)/(maxVal-minVal) ;sliderFill.Size=UDim2.new(ratio,0,1,0);sliderBtn.Position=     
+  UDim2.new(ratio, -7,0,0);end sliderBtn.MouseButton1Down:Connect(function() dragging=true;end);sliderBg.InputBegan:Connect(function(input) if ((input.UserInputType==    
+  Enum.UserInputType.MouseButton1) or (input.UserInputType==Enum.UserInputType.Touch)) then dragging=true;local mousePos=input.Position.X;local bgPos=sliderBg.           
+  AbsolutePosition.X;local bgSize=sliderBg.AbsoluteSize.X;local ratio=math.clamp((mousePos-bgPos)/bgSize ,0,1);updateValue(minVal + (ratio * (maxVal-minVal)) );end end); 
+  uis.InputEnded:Connect(function(input) if ((input.UserInputType==Enum.UserInputType.MouseButton1) or (input.UserInputType==Enum.UserInputType.Touch)) then dragging=false 
+  ;end end);uis.InputChanged:Connect(function(input) if (dragging and ((input.UserInputType==Enum.UserInputType.MouseMovement) or (input.UserInputType==Enum.UserInputType. 
+  Touch))) then local mousePos=input.Position.X;local bgPos=sliderBg.AbsolutePosition.X;local bgSize=sliderBg.AbsoluteSize.X;local ratio=math.clamp((mousePos-bgPos)/bgSize 
+   ,0,1);updateValue(minVal + (ratio * (maxVal-minVal)) );end end);tb.FocusLost:Connect(function() local num=tonumber(tb.Text);if num then updateValue(num);else tb.Text=   
+  tostring(currentVal);end end);smBtn.MouseButton1Click:Connect(function() updateValue(1);end);punchBtn.MouseButton1Click:Connect(function() pcall(function() local Event=  
+  workspace:GetChildren()[340].Script.Event;Event:FireServer(currentVal);end);end);
