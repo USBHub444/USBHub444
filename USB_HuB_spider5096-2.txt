@@ -1,0 +1,1365 @@
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- ลบ GUI เก่าถ้ามีอยู่
+if PlayerGui:FindFirstChild("USB_HuB_ScreenGui") then
+    PlayerGui["USB_HuB_ScreenGui"]:Destroy()
+end
+
+-- ★ BuiltInIcons (ดึงครบถ้วน 1036 รายการ ไม่ตัดทอนใดๆ ทั้งสิ้น)
+local BuiltInIcons = {
+    ["..audioposition.seconds\\\\nreturn\\\\nend\\\\nobj.text = audioposition.minutes.."] = "rbxassetid://..audioPosition.seconds\\\\nend\\\\nlocal playpause = createIcon(",
+    ["01 01"] = "rbxassetid://🎆",
+    ["10 31"] = "rbxassetid://🎃",
+    ["12 25"] = "rbxassetid://🎄",
+    ["accessibility"] = "rbxassetid://10709751939",
+    ["activeplaylist"] = "rbxassetid://None",
+    ["activity"] = "rbxassetid://7733655755",
+    ["adlesslogin"] = "rbxassetid://إعلانات بلا دخول تسجيل",
+    ["air-vent"] = "rbxassetid://10709752131",
+    ["airplay"] = "rbxassetid://7733655834",
+    ["alarm-check"] = "rbxassetid://7733655912",
+    ["alarm-clock"] = "rbxassetid://7733656100",
+    ["alarm-clock-off"] = "rbxassetid://7733656003",
+    ["alarm-minus"] = "rbxassetid://7733656164",
+    ["alarm-plus"] = "rbxassetid://7733658066",
+    ["album"] = "rbxassetid://7733658133",
+    ["alert-circle"] = "rbxassetid://7733658271",
+    ["alert-octagon"] = "rbxassetid://7733658335",
+    ["alert-triangle"] = "rbxassetid://7733658504",
+    ["align-center"] = "rbxassetid://7733909776",
+    ["align-center-horizontal"] = "rbxassetid://8997380477",
+    ["align-center-vertical"] = "rbxassetid://8997380737",
+    ["align-end-horizontal"] = "rbxassetid://8997380820",
+    ["align-end-vertical"] = "rbxassetid://8997380907",
+    ["align-horizonal-distribute-center"] = "rbxassetid://8997381028",
+    ["align-horizonal-distribute-end"] = "rbxassetid://8997381144",
+    ["align-horizonal-distribute-start"] = "rbxassetid://8997381290",
+    ["align-horizontal-distribute-center"] = "rbxassetid://10747779791",
+    ["align-horizontal-distribute-end"] = "rbxassetid://10747784534",
+    ["align-horizontal-distribute-start"] = "rbxassetid://10709754118",
+    ["align-horizontal-justify-center"] = "rbxassetid://8997381461",
+    ["align-horizontal-justify-end"] = "rbxassetid://8997381549",
+    ["align-horizontal-justify-start"] = "rbxassetid://8997381652",
+    ["align-horizontal-space-around"] = "rbxassetid://8997381738",
+    ["align-horizontal-space-between"] = "rbxassetid://8997381854",
+    ["align-justify"] = "rbxassetid://7733661326",
+    ["align-left"] = "rbxassetid://7733911357",
+    ["align-right"] = "rbxassetid://7733663582",
+    ["align-start-horizontal"] = "rbxassetid://8997381965",
+    ["align-start-vertical"] = "rbxassetid://8997382085",
+    ["align-vertical-distribute-center"] = "rbxassetid://8997382212",
+    ["align-vertical-distribute-end"] = "rbxassetid://8997382326",
+    ["align-vertical-distribute-start"] = "rbxassetid://8997382428",
+    ["align-vertical-justify-center"] = "rbxassetid://8997382502",
+    ["align-vertical-justify-end"] = "rbxassetid://8997382584",
+    ["align-vertical-justify-start"] = "rbxassetid://8997382639",
+    ["align-vertical-space-around"] = "rbxassetid://8997382708",
+    ["align-vertical-space-between"] = "rbxassetid://8997382793",
+    ["anchor"] = "rbxassetid://7733911490",
+    ["angry"] = "rbxassetid://10709761629",
+    ["animationid"] = "rbxassetid://168268306",
+    ["annoyed"] = "rbxassetid://10709761722",
+    ["antiafk"] = "rbxassetid://Anti-AFK",
+    ["aperture"] = "rbxassetid://7733666258",
+    ["apple"] = "rbxassetid://10709761889",
+    ["archive"] = "rbxassetid://7733911621",
+    ["archive-restore"] = "rbxassetid://10709762058",
+    ["armchair"] = "rbxassetid://10709762327",
+    ["armside"] = "rbxassetid://Left",
+    ["arrow-big-down"] = "rbxassetid://7733668653",
+    ["arrow-big-left"] = "rbxassetid://7733911731",
+    ["arrow-big-right"] = "rbxassetid://7733671493",
+    ["arrow-big-up"] = "rbxassetid://7733671663",
+    ["arrow-down"] = "rbxassetid://7733672933",
+    ["arrow-down-circle"] = "rbxassetid://7733671763",
+    ["arrow-down-left"] = "rbxassetid://7733672282",
+    ["arrow-down-right"] = "rbxassetid://7733672831",
+    ["arrow-left"] = "rbxassetid://7733673136",
+    ["arrow-left-circle"] = "rbxassetid://7733673056",
+    ["arrow-left-right"] = "rbxassetid://8997382869",
+    ["arrow-right"] = "rbxassetid://7733673345",
+    ["arrow-right-circle"] = "rbxassetid://7733673229",
+    ["arrow-up"] = "rbxassetid://7733673717",
+    ["arrow-up-circle"] = "rbxassetid://7733673466",
+    ["arrow-up-down"] = "rbxassetid://10709768538",
+    ["arrow-up-left"] = "rbxassetid://7733673539",
+    ["arrow-up-right"] = "rbxassetid://7733673646",
+    ["assetid"] = "rbxassetid://..assetsearch.Text))}\\\\nelse\\\\nhttp = game:service",
+    ["assets"] = "rbxassetid://https://raw.githubusercontent.com/infyiff/backup/refs/heads/main/",
+    ["assettype"] = "rbxassetid://エフェクト",
+    ["asterisk"] = "rbxassetid://7733673800",
+    ["at-sign"] = "rbxassetid://7733673907",
+    ["avatar_url"] = "rbxassetid://,\n    [",
+    ["award"] = "rbxassetid://7733673987",
+    ["axe"] = "rbxassetid://7733674079",
+    ["axis-3d"] = "rbxassetid://10709769598",
+    ["baby"] = "rbxassetid://10709769732",
+    ["backpack"] = "rbxassetid://10709769841",
+    ["baggage-claim"] = "rbxassetid://10709769935",
+    ["banana"] = "rbxassetid://10709770005",
+    ["banknote"] = "rbxassetid://7733674153",
+    ["bar-chart"] = "rbxassetid://7733674319",
+    ["bar-chart-2"] = "rbxassetid://7733674239",
+    ["bar-chart-3"] = "rbxassetid://10709770431",
+    ["bar-chart-4"] = "rbxassetid://10709770560",
+    ["bar-chart-horizontal"] = "rbxassetid://10709773669",
+    ["barcode"] = "rbxassetid://10747360675",
+    ["baseline"] = "rbxassetid://10709773863",
+    ["bath"] = "rbxassetid://10709773963",
+    ["battery"] = "rbxassetid://7733674820",
+    ["battery-charging"] = "rbxassetid://7733674402",
+    ["battery-full"] = "rbxassetid://7733674503",
+    ["battery-low"] = "rbxassetid://7733674589",
+    ["battery-medium"] = "rbxassetid://7733674731",
+    ["beaker"] = "rbxassetid://7733674922",
+    ["bed"] = "rbxassetid://10709775036",
+    ["bed-double"] = "rbxassetid://10709774864",
+    ["bed-single"] = "rbxassetid://10709774968",
+    ["beer"] = "rbxassetid://10709775167",
+    ["bell"] = "rbxassetid://7733911828",
+    ["bell-minus"] = "rbxassetid://7733675028",
+    ["bell-off"] = "rbxassetid://7733675107",
+    ["bell-plus"] = "rbxassetid://7733675181",
+    ["bell-ring"] = "rbxassetid://7733675275",
+    ["bestping"] = "rbxassetid://Meilleur ping",
+    ["bike"] = "rbxassetid://7733678330",
+    ["binary"] = "rbxassetid://7733678388",
+    ["bindkey"] = "rbxassetid://Q",
+    ["bitcoin"] = "rbxassetid://10709776126",
+    ["bluetooth"] = "rbxassetid://7733687147",
+    ["bluetooth-connected"] = "rbxassetid://7734110952",
+    ["bluetooth-off"] = "rbxassetid://7733914252",
+    ["bluetooth-searching"] = "rbxassetid://7733914320",
+    ["bodyvel_name"] = "rbxassetid://FlingVelocity",
+    ["bold"] = "rbxassetid://7733687211",
+    ["bomb"] = "rbxassetid://10709781460",
+    ["bone"] = "rbxassetid://10709781605",
+    ["book"] = "rbxassetid://7733914390",
+    ["book-open"] = "rbxassetid://7733687281",
+    ["bookmark"] = "rbxassetid://7733692043",
+    ["bookmark-minus"] = "rbxassetid://7733689754",
+    ["bookmark-plus"] = "rbxassetid://7734111084",
+    ["bot"] = "rbxassetid://7733916988",
+    ["bottomimage"] = "rbxassetid://rbxasset://textures/ui/Scroll/scroll-middle.png",
+    ["box"] = "rbxassetid://7733917120",
+    ["box-select"] = "rbxassetid://7733696665",
+    ["boxes"] = "rbxassetid://10709782582",
+    ["briefcase"] = "rbxassetid://7733919017",
+    ["brush"] = "rbxassetid://7733701455",
+    ["bug"] = "rbxassetid://7733701545",
+    ["building"] = "rbxassetid://7733701625",
+    ["building-2"] = "rbxassetid://10709782939",
+    ["bus"] = "rbxassetid://7733701715",
+    ["cake"] = "rbxassetid://10709783217",
+    ["calculator"] = "rbxassetid://7733919105",
+    ["calendar"] = "rbxassetid://7733919198",
+    ["calendar-check"] = "rbxassetid://10709783474",
+    ["calendar-check-2"] = "rbxassetid://10709783392",
+    ["calendar-clock"] = "rbxassetid://10709783577",
+    ["calendar-days"] = "rbxassetid://10709783673",
+    ["calendar-heart"] = "rbxassetid://10709783835",
+    ["calendar-minus"] = "rbxassetid://10709783959",
+    ["calendar-off"] = "rbxassetid://10709788784",
+    ["calendar-plus"] = "rbxassetid://10709788937",
+    ["calendar-range"] = "rbxassetid://10709789053",
+    ["calendar-search"] = "rbxassetid://10709789200",
+    ["calendar-x"] = "rbxassetid://10709789407",
+    ["calendar-x-2"] = "rbxassetid://10709789329",
+    ["camera"] = "rbxassetid://7733708692",
+    ["camera-off"] = "rbxassetid://7733919260",
+    ["cameramaxzoomdistance"] = "rbxassetid://8000000",
+    ["cameramode"] = "rbxassetid://Classic",
+    ["car"] = "rbxassetid://7733708835",
+    ["carrot"] = "rbxassetid://8997382987",
+    ["cast"] = "rbxassetid://7733919326",
+    ["cat"] = "rbxassetid://16935650691",
+    ["category"] = "rbxassetid://管理者権限-管理者以外は見れません",
+    ["cd"] = "rbxassetid://7734110220",
+    ["charge"] = "rbxassetid://8997383136",
+    ["chars"] = "rbxassetid://abcdefghijklmnopqrstuvwxyz",
+    ["charset"] = "rbxassetid://UTF-8",
+    ["check"] = "rbxassetid://7733715400",
+    ["check-circle"] = "rbxassetid://7733919427",
+    ["check-circle-2"] = "rbxassetid://7733710700",
+    ["check-square"] = "rbxassetid://7733919526",
+    ["chef-hat"] = "rbxassetid://10709790757",
+    ["cherry"] = "rbxassetid://10709790875",
+    ["chevron-down"] = "rbxassetid://7733717447",
+    ["chevron-first"] = "rbxassetid://8997383275",
+    ["chevron-last"] = "rbxassetid://8997383390",
+    ["chevron-left"] = "rbxassetid://7733717651",
+    ["chevron-right"] = "rbxassetid://7733717755",
+    ["chevron-up"] = "rbxassetid://7733919605",
+    ["chevrons-down"] = "rbxassetid://7733720604",
+    ["chevrons-down-up"] = "rbxassetid://7733720483",
+    ["chevrons-left"] = "rbxassetid://7733720701",
+    ["chevrons-left-right"] = "rbxassetid://10709797006",
+    ["chevrons-right"] = "rbxassetid://7733919682",
+    ["chevrons-right-left"] = "rbxassetid://10709797274",
+    ["chevrons-up"] = "rbxassetid://7733723433",
+    ["chevrons-up-down"] = "rbxassetid://7733723321",
+    ["chrome"] = "rbxassetid://7733919783",
+    ["circle"] = "rbxassetid://7733919881",
+    ["circle-dot"] = "rbxassetid://10709797837",
+    ["circle-ellipsis"] = "rbxassetid://10709797985",
+    ["circle-slashed"] = "rbxassetid://8997383530",
+    ["citrus"] = "rbxassetid://10709798276",
+    ["city"] = "rbxassetid://不明",
+    ["clapperboard"] = "rbxassetid://10709798350",
+    ["class"] = "rbxassetid://error-log",
+    ["classname"] = "rbxassetid://permission-status prompt",
+    ["clear"] = "rbxassetid://إخلاء",
+    ["clearconsole"] = "rbxassetid://التحكم وحدة إخلاء",
+    ["clipboard"] = "rbxassetid://7733734762",
+    ["clipboard-check"] = "rbxassetid://7733919947",
+    ["clipboard-copy"] = "rbxassetid://7733920037",
+    ["clipboard-edit"] = "rbxassetid://10709798682",
+    ["clipboard-list"] = "rbxassetid://7733920117",
+    ["clipboard-signature"] = "rbxassetid://10709798890",
+    ["clipboard-type"] = "rbxassetid://10709798999",
+    ["clipboard-x"] = "rbxassetid://7733734668",
+    ["clock"] = "rbxassetid://7733734848",
+    ["clock-1"] = "rbxassetid://8997383694",
+    ["clock-10"] = "rbxassetid://8997383876",
+    ["clock-11"] = "rbxassetid://8997384034",
+    ["clock-12"] = "rbxassetid://8997384150",
+    ["clock-2"] = "rbxassetid://8997384295",
+    ["clock-3"] = "rbxassetid://8997384456",
+    ["clock-4"] = "rbxassetid://8997384603",
+    ["clock-5"] = "rbxassetid://8997384798",
+    ["clock-6"] = "rbxassetid://8997384977",
+    ["clock-7"] = "rbxassetid://8997385147",
+    ["clock-8"] = "rbxassetid://8997385352",
+    ["clock-9"] = "rbxassetid://8997385485",
+    ["cloud"] = "rbxassetid://7733746980",
+    ["cloud-cog"] = "rbxassetid://10709805262",
+    ["cloud-drizzle"] = "rbxassetid://7733920226",
+    ["cloud-fog"] = "rbxassetid://7733920317",
+    ["cloud-hail"] = "rbxassetid://7733920444",
+    ["cloud-lightning"] = "rbxassetid://7733741741",
+    ["cloud-moon"] = "rbxassetid://7733920519",
+    ["cloud-moon-rain"] = "rbxassetid://10709805838",
+    ["cloud-off"] = "rbxassetid://7733745572",
+    ["cloud-rain"] = "rbxassetid://7733746651",
+    ["cloud-rain-wind"] = "rbxassetid://7733746456",
+    ["cloud-snow"] = "rbxassetid://7733746798",
+    ["cloud-sun"] = "rbxassetid://7733746880",
+    ["cloud-sun-rain"] = "rbxassetid://10709806475",
+    ["cloudy"] = "rbxassetid://7733747106",
+    ["clover"] = "rbxassetid://7733747233",
+    ["code"] = "rbxassetid://7733749837",
+    ["code-2"] = "rbxassetid://7733920644",
+    ["codepen"] = "rbxassetid://7733920768",
+    ["codesandbox"] = "rbxassetid://7733752575",
+    ["coffee"] = "rbxassetid://7733752630",
+    ["cog"] = "rbxassetid://10709810948",
+    ["coins"] = "rbxassetid://7743866529",
+    ["collisiongroup"] = "rbxassetid://n",
+    ["color"] = "rbxassetid://3447003",
+    ["columns"] = "rbxassetid://7733757178",
+    ["command"] = "rbxassetid://7733924046",
+    ["compass"] = "rbxassetid://7733924216",
+    ["compatibilitymode"] = "rbxassetid://Mode de compatibilité",
+    ["component"] = "rbxassetid://10709811595",
+    ["concierge-bell"] = "rbxassetid://10709811706",
+    ["configfolder"] = "rbxassetid://FTAP",
+    ["connection"] = "rbxassetid://10747361219",
+    ["contact"] = "rbxassetid://7743866666",
+    ["container"] = "rbxassetid://17466205552",
+    ["content"] = "rbxassetid://サーバーが見つかりません",
+    ["content-type"] = "rbxassetid://application/json",
+    ["contrast"] = "rbxassetid://7733764005",
+    ["cookie"] = "rbxassetid://..game:service",
+    ["copy"] = "rbxassetid://7733764083",
+    ["copyconsole"] = "rbxassetid://التحكم وحدة نسخ",
+    ["copykeylink"] = "rbxassetid://المفتاح رابط نسخ",
+    ["copyleft"] = "rbxassetid://7733764196",
+    ["copyright"] = "rbxassetid://7733764275",
+    ["copyscript"] = "rbxassetid://النصي البرنامج نسخ",
+    ["corner-down-left"] = "rbxassetid://7733764327",
+    ["corner-down-right"] = "rbxassetid://7733764385",
+    ["corner-left-down"] = "rbxassetid://7733764448",
+    ["corner-left-up"] = "rbxassetid://7733764536",
+    ["corner-right-down"] = "rbxassetid://7733764605",
+    ["corner-right-up"] = "rbxassetid://7733764680",
+    ["corner-up-left"] = "rbxassetid://7733764800",
+    ["corner-up-right"] = "rbxassetid://7733764915",
+    ["cpu"] = "rbxassetid://7733765045",
+    ["croissant"] = "rbxassetid://10709818125",
+    ["crop"] = "rbxassetid://7733765140",
+    ["cross"] = "rbxassetid://7733765224",
+    ["crosshair"] = "rbxassetid://7733765307",
+    ["crown"] = "rbxassetid://7733765398",
+    ["cup-soda"] = "rbxassetid://10709818763",
+    ["curly-braces"] = "rbxassetid://10709818847",
+    ["currency"] = "rbxassetid://7733765592",
+    ["currentoption"] = "rbxassetid://No Reverb",
+    ["currentversion"] = "rbxassetid://6.3.4",
+    ["d"] = "rbxassetid://6000000",
+    ["database"] = "rbxassetid://7743866778",
+    ["decorimg"] = "rbxassetid://18919749220",
+    ["default"] = "rbxassetid://解除",
+    ["delete"] = "rbxassetid://7733768142",
+    ["description"] = "rbxassetid://Comunidade oficial do Hub",
+    ["diamond"] = "rbxassetid://10709819149",
+    ["dice-1"] = "rbxassetid://10709819266",
+    ["dice-2"] = "rbxassetid://10709819361",
+    ["dice-3"] = "rbxassetid://10709819508",
+    ["dice-4"] = "rbxassetid://10709819670",
+    ["dice-5"] = "rbxassetid://10709819801",
+    ["dice-6"] = "rbxassetid://10709819896",
+    ["dices"] = "rbxassetid://10723343321",
+    ["diff"] = "rbxassetid://10723343416",
+    ["disc"] = "rbxassetid://10723343537",
+    ["display"] = "rbxassetid://none",
+    ["displayorder"] = "rbxassetid://2147483647",
+    ["divide"] = "rbxassetid://7733769365",
+    ["divide-circle"] = "rbxassetid://7733769152",
+    ["divide-square"] = "rbxassetid://7733769261",
+    ["dollar-sign"] = "rbxassetid://7733770599",
+    ["download"] = "rbxassetid://7733770755",
+    ["download-cloud"] = "rbxassetid://7733770689",
+    ["dribbble"] = "rbxassetid://7733770843",
+    ["droplet"] = "rbxassetid://7733770982",
+    ["droplets"] = "rbxassetid://7733771078",
+    ["drumstick"] = "rbxassetid://8997385789",
+    ["edit"] = "rbxassetid://7733771472",
+    ["edit-2"] = "rbxassetid://7733771217",
+    ["edit-3"] = "rbxassetid://7733771361",
+    ["editor"] = "rbxassetid://المحرر",
+    ["editorinit"] = "rbxassetid://print(\\\\\\\\",
+    ["egg"] = "rbxassetid://8997385940",
+    ["egg-fried"] = "rbxassetid://10723345347",
+    ["electricity"] = "rbxassetid://7733771628",
+    ["electricity-off"] = "rbxassetid://7733771563",
+    ["emoji"] = "rbxassetid://blush",
+    ["empty"] = "rbxassetid://Vide",
+    ["enterkey"] = "rbxassetid://المفتاح أدخل",
+    ["equal"] = "rbxassetid://7733771811",
+    ["equal-not"] = "rbxassetid://7733771726",
+    ["eraser"] = "rbxassetid://10723346158",
+    ["errormessage"] = "rbxassetid://カメラが使えません:",
+    ["espcolormode"] = "rbxassetid://RGB",
+    ["euro"] = "rbxassetid://7733771891",
+    ["execute"] = "rbxassetid://تنفيذ",
+    ["expand"] = "rbxassetid://7733771982",
+    ["external-link"] = "rbxassetid://7743866903",
+    ["eye"] = "rbxassetid://7733774602",
+    ["eye-off"] = "rbxassetid://7733774495",
+    ["face"] = "rbxassetid://RobotoMono",
+    ["factory"] = "rbxassetid://10723347051",
+    ["fan"] = "rbxassetid://10723354359",
+    ["fast-forward"] = "rbxassetid://7743867090",
+    ["feather"] = "rbxassetid://7733777166",
+    ["figma"] = "rbxassetid://7743867310",
+    ["file"] = "rbxassetid://7733793319",
+    ["file-archive"] = "rbxassetid://10723354921",
+    ["file-audio"] = "rbxassetid://10723355148",
+    ["file-audio-2"] = "rbxassetid://10723355026",
+    ["file-axis-3d"] = "rbxassetid://10723355272",
+    ["file-badge"] = "rbxassetid://10723355622",
+    ["file-badge-2"] = "rbxassetid://10723355451",
+    ["file-bar-chart"] = "rbxassetid://10723355887",
+    ["file-bar-chart-2"] = "rbxassetid://10723355746",
+    ["file-box"] = "rbxassetid://10723355989",
+    ["file-check"] = "rbxassetid://7733779668",
+    ["file-check-2"] = "rbxassetid://7733779610",
+    ["file-clock"] = "rbxassetid://10723356329",
+    ["file-code"] = "rbxassetid://7733779730",
+    ["file-cog"] = "rbxassetid://10723356830",
+    ["file-cog-2"] = "rbxassetid://10723356676",
+    ["file-diff"] = "rbxassetid://10723357039",
+    ["file-digit"] = "rbxassetid://7733935829",
+    ["file-down"] = "rbxassetid://10723357322",
+    ["file-edit"] = "rbxassetid://10723357495",
+    ["file-heart"] = "rbxassetid://10723357637",
+    ["file-image"] = "rbxassetid://10723357790",
+    ["file-input"] = "rbxassetid://7733935917",
+    ["file-json"] = "rbxassetid://10723364435",
+    ["file-json-2"] = "rbxassetid://10723364361",
+    ["file-key"] = "rbxassetid://10723364605",
+    ["file-key-2"] = "rbxassetid://10723364515",
+    ["file-line-chart"] = "rbxassetid://10723364725",
+    ["file-lock"] = "rbxassetid://10723364957",
+    ["file-lock-2"] = "rbxassetid://10723364861",
+    ["file-minus"] = "rbxassetid://7733936115",
+    ["file-minus-2"] = "rbxassetid://7733936010",
+    ["file-output"] = "rbxassetid://7733788742",
+    ["file-pie-chart"] = "rbxassetid://10723365598",
+    ["file-plus"] = "rbxassetid://7733788885",
+    ["file-plus-2"] = "rbxassetid://7733788816",
+    ["file-question"] = "rbxassetid://10723365987",
+    ["file-scan"] = "rbxassetid://10723366167",
+    ["file-search"] = "rbxassetid://7733788966",
+    ["file-search-2"] = "rbxassetid://10723366340",
+    ["file-signature"] = "rbxassetid://10723366741",
+    ["file-spreadsheet"] = "rbxassetid://10723366962",
+    ["file-symlink"] = "rbxassetid://10723367098",
+    ["file-terminal"] = "rbxassetid://10723367244",
+    ["file-text"] = "rbxassetid://7733789088",
+    ["file-type"] = "rbxassetid://10723367606",
+    ["file-type-2"] = "rbxassetid://10723367509",
+    ["file-up"] = "rbxassetid://10723367734",
+    ["file-video"] = "rbxassetid://10723373884",
+    ["file-video-2"] = "rbxassetid://10723367834",
+    ["file-volume"] = "rbxassetid://10723374172",
+    ["file-volume-2"] = "rbxassetid://10723374030",
+    ["file-warning"] = "rbxassetid://10723374276",
+    ["file-x"] = "rbxassetid://7733938136",
+    ["file-x-2"] = "rbxassetid://7743867554",
+    ["filename"] = "rbxassetid://vhsv5",
+    ["files"] = "rbxassetid://7743867811",
+    ["fileurl"] = "rbxassetid://https://raw.githubusercontent.com/reprenzy-hue/RayBeats/refs/heads/main/",
+    ["film"] = "rbxassetid://7733942579",
+    ["filter"] = "rbxassetid://7733798407",
+    ["fingerprint"] = "rbxassetid://10723375250",
+    ["flag"] = "rbxassetid://7733798691",
+    ["flag-off"] = "rbxassetid://10723375443",
+    ["flag-triangle-left"] = "rbxassetid://7733798509",
+    ["flag-triangle-right"] = "rbxassetid://7733798634",
+    ["flags"] = "rbxassetid://Spectrahub_Brookhaven",
+    ["flame"] = "rbxassetid://7733798747",
+    ["flashlight"] = "rbxassetid://7733798851",
+    ["flashlight-off"] = "rbxassetid://7733798799",
+    ["flask-conical"] = "rbxassetid://7733798901",
+    ["flask-round"] = "rbxassetid://7733798957",
+    ["flingtarget"] = "rbxassetid://Player",
+    ["flip-horizontal"] = "rbxassetid://10723376884",
+    ["flip-horizontal-2"] = "rbxassetid://10723376745",
+    ["flip-vertical"] = "rbxassetid://10723377138",
+    ["flip-vertical-2"] = "rbxassetid://10723377026",
+    ["flower"] = "rbxassetid://10747830374",
+    ["flower-2"] = "rbxassetid://10723377305",
+    ["focus"] = "rbxassetid://10723377537",
+    ["folder"] = "rbxassetid://7733799185",
+    ["folder-archive"] = "rbxassetid://10723384478",
+    ["folder-check"] = "rbxassetid://10723384605",
+    ["folder-clock"] = "rbxassetid://10723384731",
+    ["folder-closed"] = "rbxassetid://10723384893",
+    ["folder-cog"] = "rbxassetid://10723385213",
+    ["folder-cog-2"] = "rbxassetid://10723385036",
+    ["folder-down"] = "rbxassetid://10723385338",
+    ["folder-edit"] = "rbxassetid://10723385445",
+    ["folder-heart"] = "rbxassetid://10723385545",
+    ["folder-input"] = "rbxassetid://10723385721",
+    ["folder-key"] = "rbxassetid://10723385848",
+    ["folder-lock"] = "rbxassetid://10723386005",
+    ["folder-minus"] = "rbxassetid://7733799022",
+    ["folder-open"] = "rbxassetid://8997386062",
+    ["folder-output"] = "rbxassetid://10723386386",
+    ["folder-plus"] = "rbxassetid://7733799092",
+    ["folder-search"] = "rbxassetid://10723386787",
+    ["folder-search-2"] = "rbxassetid://10723386674",
+    ["folder-symlink"] = "rbxassetid://10723386930",
+    ["folder-tree"] = "rbxassetid://10723387085",
+    ["folder-up"] = "rbxassetid://10723387265",
+    ["folder-x"] = "rbxassetid://10723387448",
+    ["foldername"] = "rbxassetid://VHS",
+    ["folders"] = "rbxassetid://10723387721",
+    ["for"] = "rbxassetid://luaCode",
+    ["form-input"] = "rbxassetid://7733799275",
+    ["forward"] = "rbxassetid://7733799371",
+    ["fps"] = "rbxassetid://FPS",
+    ["frame"] = "rbxassetid://10723394389",
+    ["framer"] = "rbxassetid://7733799486",
+    ["free"] = "rbxassetid://無料url",
+    ["freelogin"] = "rbxassetid://المجاني الدخول تسجيل",
+    ["frown"] = "rbxassetid://7733799591",
+    ["fuel"] = "rbxassetid://10723394846",
+    ["full"] = "rbxassetid://Rempli",
+    ["function-square"] = "rbxassetid://7733799682",
+    ["gameinstanceid"] = "rbxassetid://.. game.JobId\\\\n    vu637.GameName = vu637.MarketplaceService:GetProductInfo(game.PlaceId).Name\\\\n    function make()\\\\n        local v638 = identifyexecutor()\\\\n        local v639 = {\\\\n            avatar_url =",
+    ["gamepad"] = "rbxassetid://7733799901",
+    ["gamepad-2"] = "rbxassetid://7733799795",
+    ["gauge"] = "rbxassetid://7733799969",
+    ["gavel"] = "rbxassetid://7733800044",
+    ["gem"] = "rbxassetid://7733942651",
+    ["ghost"] = "rbxassetid://7743868000",
+    ["gift"] = "rbxassetid://7733946818",
+    ["gift-card"] = "rbxassetid://7733945018",
+    ["git-branch"] = "rbxassetid://7733949149",
+    ["git-branch-plus"] = "rbxassetid://7743868200",
+    ["git-commit"] = "rbxassetid://7743868360",
+    ["git-compare"] = "rbxassetid://10723396954",
+    ["git-fork"] = "rbxassetid://10723397049",
+    ["git-merge"] = "rbxassetid://7733952195",
+    ["git-pull-request"] = "rbxassetid://7733952287",
+    ["git-pull-request-closed"] = "rbxassetid://10723397268",
+    ["git-pull-request-draft"] = "rbxassetid://10734884302",
+    ["github"] = "rbxassetid://7733954058",
+    ["gitlab"] = "rbxassetid://7733954246",
+    ["glass"] = "rbxassetid://10723397788",
+    ["glass-2"] = "rbxassetid://10723397529",
+    ["glass-water"] = "rbxassetid://10723397678",
+    ["glasses"] = "rbxassetid://7733954403",
+    ["globe"] = "rbxassetid://7733954760",
+    ["globe-2"] = "rbxassetid://7733954611",
+    ["grab"] = "rbxassetid://7733954884",
+    ["graduation-cap"] = "rbxassetid://7733955058",
+    ["grape"] = "rbxassetid://10723404822",
+    ["grid"] = "rbxassetid://7733955179",
+    ["grip-horizontal"] = "rbxassetid://7733955302",
+    ["grip-vertical"] = "rbxassetid://7733955410",
+    ["hammer"] = "rbxassetid://7733955511",
+    ["hand"] = "rbxassetid://7733955740",
+    ["hand-metal"] = "rbxassetid://7733955664",
+    ["hard-drive"] = "rbxassetid://7733955793",
+    ["hard-hat"] = "rbxassetid://7733955850",
+    ["hash"] = "rbxassetid://7733955906",
+    ["haze"] = "rbxassetid://7733955969",
+    ["headphones"] = "rbxassetid://7733956063",
+    ["heart"] = "rbxassetid://7733956134",
+    ["heart-crack"] = "rbxassetid://10723406299",
+    ["heart-handshake"] = "rbxassetid://10723406480",
+    ["heart-off"] = "rbxassetid://10723406662",
+    ["heart-pulse"] = "rbxassetid://10723406795",
+    ["height"] = "rbxassetid://240",
+    ["help-circle"] = "rbxassetid://7733956210",
+    ["hexagon"] = "rbxassetid://7743868527",
+    ["highlighter"] = "rbxassetid://7743868648",
+    ["history"] = "rbxassetid://7733960880",
+    ["home"] = "rbxassetid://7733960981",
+    ["hourglass"] = "rbxassetid://10723407498",
+    ["href"] = "rbxassetid://https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap",
+    ["ice-cream"] = "rbxassetid://10723414308",
+    ["icon"] = "rbxassetid://904628594",
+    ["id"] = "rbxassetid://144931564",
+    ["identifier"] = "rbxassetid://Search",
+    ["image"] = "rbxassetid://894282728",
+    ["image-minus"] = "rbxassetid://7733963797",
+    ["image-off"] = "rbxassetid://7733963907",
+    ["image-plus"] = "rbxassetid://7733964016",
+    ["import"] = "rbxassetid://7733964240",
+    ["inbox"] = "rbxassetid://7733964370",
+    ["increment"] = "rbxassetid://1000000",
+    ["indent"] = "rbxassetid://7733964452",
+    ["indian-rupee"] = "rbxassetid://7733964536",
+    ["indicator"] = "rbxassetid://عربي",
+    ["infiniteyield/assets/bindsandplugins.png"] = "rbxassetid://5147695474",
+    ["infiniteyield/assets/close.png"] = "rbxassetid://5054663650",
+    ["infiniteyield/assets/editaliases.png"] = "rbxassetid://5147488658",
+    ["infiniteyield/assets/editkeybinds.png"] = "rbxassetid://129697930",
+    ["infiniteyield/assets/edittheme.png"] = "rbxassetid://4911962991",
+    ["infiniteyield/assets/editwaypoints.png"] = "rbxassetid://5147488592",
+    ["infiniteyield/assets/imgstudiopluginlogo.png"] = "rbxassetid://4113050383",
+    ["infiniteyield/assets/logo.png"] = "rbxassetid://1352543873",
+    ["infiniteyield/assets/minimize.png"] = "rbxassetid://2406617031",
+    ["infiniteyield/assets/pin.png"] = "rbxassetid://6234691350",
+    ["infiniteyield/assets/reference.png"] = "rbxassetid://3523243755",
+    ["infiniteyield/assets/settings.png"] = "rbxassetid://1204397029",
+    ["infinity"] = "rbxassetid://7733964640",
+    ["info"] = "rbxassetid://7733964719",
+    ["innertext"] = "rbxassetid://送信エラー:",
+    ["inspect"] = "rbxassetid://7733964808",
+    ["introicon"] = "rbxassetid://121559441445555",
+    ["introtext"] = "rbxassetid://Friendly | By Brovaky",
+    ["invite"] = "rbxassetid://BCw8KuTDnj",
+    ["is_private"] = "rbxassetid://<bound method Thread.is_private of <Thread id=1441357703766343814 name=",
+    ["italic"] = "rbxassetid://7733964917",
+    ["japanese-yen"] = "rbxassetid://10723416363",
+    ["jersey-pound"] = "rbxassetid://7733965029",
+    ["job"] = "rbxassetid://Roblox.GameLauncher.joinGameInstance(",
+    ["joystick"] = "rbxassetid://10723416527",
+    ["key"] = "rbxassetid://7733965118",
+    ["key..."] = "rbxassetid://المفتاح",
+    ["keyboard"] = "rbxassetid://10723416765",
+    ["keyword"] = "rbxassetid://..services.HttpService:UrlEncode(assetsearch.Text))))\\\\nend\\\\nend\\\\ncoroutine.wrap(function()\\\\nfor i,v in pairs(http)do\\\\nif type(v.Creator) ==",
+    ["lamp"] = "rbxassetid://10723417513",
+    ["lamp-ceiling"] = "rbxassetid://10723416922",
+    ["lamp-desk"] = "rbxassetid://10723417016",
+    ["lamp-floor"] = "rbxassetid://10723417131",
+    ["lamp-wall-down"] = "rbxassetid://10723417240",
+    ["lamp-wall-up"] = "rbxassetid://10723417356",
+    ["landmark"] = "rbxassetid://7733965184",
+    ["lang"] = "rbxassetid://ja",
+    ["language"] = "rbxassetid://English",
+    ["languages"] = "rbxassetid://7733965249",
+    ["laptop"] = "rbxassetid://7733965386",
+    ["laptop-2"] = "rbxassetid://7733965313",
+    ["lasso"] = "rbxassetid://7733967892",
+    ["lasso-select"] = "rbxassetid://7743868832",
+    ["laugh"] = "rbxassetid://10723424372",
+    ["layers"] = "rbxassetid://7743868936",
+    ["layout"] = "rbxassetid://7733970543",
+    ["layout-dashboard"] = "rbxassetid://7733970318",
+    ["layout-grid"] = "rbxassetid://7733970390",
+    ["layout-list"] = "rbxassetid://7733970442",
+    ["layout-template"] = "rbxassetid://7733970494",
+    ["leaf"] = "rbxassetid://10723425539",
+    ["library"] = "rbxassetid://7743869054",
+    ["life-buoy"] = "rbxassetid://7733973479",
+    ["lightbulb"] = "rbxassetid://7733975185",
+    ["lightbulb-off"] = "rbxassetid://7733975123",
+    ["line-chart"] = "rbxassetid://10723426393",
+    ["link"] = "rbxassetid://7733978098",
+    ["link-2"] = "rbxassetid://7743869163",
+    ["link-2-off"] = "rbxassetid://7733975283",
+    ["list"] = "rbxassetid://7743869612",
+    ["list-checks"] = "rbxassetid://7743869317",
+    ["list-end"] = "rbxassetid://10723426886",
+    ["list-minus"] = "rbxassetid://7733980795",
+    ["list-music"] = "rbxassetid://10723427081",
+    ["list-ordered"] = "rbxassetid://7743869411",
+    ["list-plus"] = "rbxassetid://7733984995",
+    ["list-start"] = "rbxassetid://10723427494",
+    ["list-todo"] = "rbxassetid://17376008003",
+    ["list-video"] = "rbxassetid://10723427619",
+    ["list-x"] = "rbxassetid://7743869517",
+    ["loader"] = "rbxassetid://7733992358",
+    ["loader-2"] = "rbxassetid://7733989869",
+    ["loadingsubtitle"] = "rbxassetid://by VHCK - All Features Unlocked",
+    ["loadingtitle"] = "rbxassetid://Try Hard V5 - Full Version",
+    ["loadscript"] = "rbxassetid://النصي البرنامج حمل",
+    ["loadtext"] = "rbxassetid://Carregando Spectra",
+    ["locate"] = "rbxassetid://7733992469",
+    ["locate-fixed"] = "rbxassetid://7733992424",
+    ["locate-off"] = "rbxassetid://10723434379",
+    ["lock"] = "rbxassetid://7733992528",
+    ["log-in"] = "rbxassetid://7733992604",
+    ["log-out"] = "rbxassetid://7733992677",
+    ["logo"] = "rbxassetid://ID IMAGEM",
+    ["luggage"] = "rbxassetid://10723434993",
+    ["magnet"] = "rbxassetid://10723435069",
+    ["mail"] = "rbxassetid://7733992732",
+    ["mail-check"] = "rbxassetid://10723435182",
+    ["mail-minus"] = "rbxassetid://10723435261",
+    ["mail-open"] = "rbxassetid://10723435342",
+    ["mail-plus"] = "rbxassetid://10723435443",
+    ["mail-question"] = "rbxassetid://10723435515",
+    ["mail-search"] = "rbxassetid://10734884739",
+    ["mail-warning"] = "rbxassetid://10734885015",
+    ["mail-x"] = "rbxassetid://10734885247",
+    ["mails"] = "rbxassetid://10734885614",
+    ["map"] = "rbxassetid://7733992829",
+    ["map-pin"] = "rbxassetid://7733992789",
+    ["map-pin-off"] = "rbxassetid://10734885803",
+    ["max"] = "rbxassetid://10000000",
+    ["maxforce"] = "rbxassetid://hG",
+    ["maximize"] = "rbxassetid://7733992982",
+    ["maximize-2"] = "rbxassetid://7733992901",
+    ["medal"] = "rbxassetid://10734887072",
+    ["megaphone"] = "rbxassetid://7733993049",
+    ["megaphone-off"] = "rbxassetid://10734887311",
+    ["meh"] = "rbxassetid://7733993147",
+    ["menu"] = "rbxassetid://7733993211",
+    ["message-circle"] = "rbxassetid://7733993311",
+    ["message-circle-question"] = "rbxassetid://16970049192",
+    ["message-square"] = "rbxassetid://7733993369",
+    ["method"] = "rbxassetid://POST",
+    ["mic"] = "rbxassetid://7743869805",
+    ["mic-2"] = "rbxassetid://10734888430",
+    ["mic-off"] = "rbxassetid://7743869714",
+    ["microscope"] = "rbxassetid://10734889106",
+    ["microwave"] = "rbxassetid://10734895076",
+    ["midimage"] = "rbxassetid://135260967917233",
+    ["milestone"] = "rbxassetid://10734895310",
+    ["minimize"] = "rbxassetid://7733997941",
+    ["minimize-2"] = "rbxassetid://7733997870",
+    ["minus"] = "rbxassetid://7734000129",
+    ["minus-circle"] = "rbxassetid://7733998053",
+    ["minus-square"] = "rbxassetid://7743869899",
+    ["monitor"] = "rbxassetid://7734002839",
+    ["monitor-off"] = "rbxassetid://7734000184",
+    ["monitor-speaker"] = "rbxassetid://7743869988",
+    ["moon"] = "rbxassetid://7743870134",
+    ["more-horizontal"] = "rbxassetid://7734006080",
+    ["more-vertical"] = "rbxassetid://7734006187",
+    ["mountain"] = "rbxassetid://7734008868",
+    ["mountain-snow"] = "rbxassetid://7743870286",
+    ["mouse"] = "rbxassetid://10734898592",
+    ["mouse-pointer"] = "rbxassetid://7743870392",
+    ["mouse-pointer-2"] = "rbxassetid://7734010405",
+    ["mouse-pointer-click"] = "rbxassetid://7734010488",
+    ["move"] = "rbxassetid://7743870731",
+    ["move-3d"] = "rbxassetid://10734898756",
+    ["move-diagonal"] = "rbxassetid://7743870505",
+    ["move-diagonal-2"] = "rbxassetid://7734013178",
+    ["move-horizontal"] = "rbxassetid://7734016210",
+    ["move-vertical"] = "rbxassetid://7743870608",
+    ["music"] = "rbxassetid://7734020554",
+    ["music-2"] = "rbxassetid://10734900215",
+    ["music-3"] = "rbxassetid://10734905665",
+    ["music-4"] = "rbxassetid://10734905823",
+    ["name"] = "rbxassetid://rBox",
+    ["navigation"] = "rbxassetid://7734020989",
+    ["navigation-2"] = "rbxassetid://7734020942",
+    ["navigation-2-off"] = "rbxassetid://10734906144",
+    ["navigation-off"] = "rbxassetid://10734906580",
+    ["network"] = "rbxassetid://7734021047",
+    ["newspaper"] = "rbxassetid://10734907168",
+    ["no_entry"] = "rbxassetid://7734021118",
+    ["octagon"] = "rbxassetid://7734021165",
+    ["on-charge"] = "rbxassetid://7734021231",
+    ["onblur"] = "rbxassetid://setDefaultText(this)",
+    ["onclick"] = "rbxassetid://clearAll()",
+    ["onfocus"] = "rbxassetid://clearDefaultText(this)",
+    ["option"] = "rbxassetid://7734021300",
+    ["outdent"] = "rbxassetid://7734021384",
+    ["owner_id"] = "rbxassetid://1322823508484423721",
+    ["p"] = "rbxassetid://100000075",
+    ["package"] = "rbxassetid://7734021469",
+    ["package-2"] = "rbxassetid://10734908151",
+    ["package-check"] = "rbxassetid://8997386143",
+    ["package-minus"] = "rbxassetid://8997386266",
+    ["package-open"] = "rbxassetid://10734908793",
+    ["package-plus"] = "rbxassetid://8997386355",
+    ["package-search"] = "rbxassetid://8997386448",
+    ["package-x"] = "rbxassetid://8997386545",
+    ["paint-bucket"] = "rbxassetid://10734909847",
+    ["paintbrush"] = "rbxassetid://10734910187",
+    ["paintbrush-2"] = "rbxassetid://10734910030",
+    ["palette"] = "rbxassetid://7734021595",
+    ["palmtree"] = "rbxassetid://10734910680",
+    ["paperclip"] = "rbxassetid://7734021680",
+    ["party-popper"] = "rbxassetid://10734918735",
+    ["password"] = "rbxassetid://pass789",
+    ["password..."] = "rbxassetid://المرور كلمة",
+    ["path"] = "rbxassetid://backups\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\stickers\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\1448172549979508807.png",
+    ["pause"] = "rbxassetid://7734021897",
+    ["pause-circle"] = "rbxassetid://7734021767",
+    ["pause-octagon"] = "rbxassetid://7734021827",
+    ["pen-tool"] = "rbxassetid://7734022041",
+    ["pencil"] = "rbxassetid://7734022107",
+    ["percent"] = "rbxassetid://7743870852",
+    ["person-standing"] = "rbxassetid://7743871002",
+    ["phone"] = "rbxassetid://7734032056",
+    ["phone-call"] = "rbxassetid://7734027264",
+    ["phone-forwarded"] = "rbxassetid://7734027345",
+    ["phone-incoming"] = "rbxassetid://7743871120",
+    ["phone-missed"] = "rbxassetid://7734029465",
+    ["phone-off"] = "rbxassetid://7734029534",
+    ["phone-outgoing"] = "rbxassetid://7743871253",
+    ["pie-chart"] = "rbxassetid://7734034378",
+    ["piggy-bank"] = "rbxassetid://7734034513",
+    ["pin"] = "rbxassetid://8997386648",
+    ["pin-off"] = "rbxassetid://10734922180",
+    ["pipette"] = "rbxassetid://7743871384",
+    ["pizza"] = "rbxassetid://10734922774",
+    ["placeholder"] = "rbxassetid://Digite o RP Bio",
+    ["placeholdertext"] = "rbxassetid://Search icons...",
+    ["plane"] = "rbxassetid://7734037723",
+    ["plane-landing"] = "rbxassetid://17376029914",
+    ["play"] = "rbxassetid://7743871480",
+    ["play-circle"] = "rbxassetid://7734037784",
+    ["plus"] = "rbxassetid://7734042071",
+    ["plus-circle"] = "rbxassetid://7734040271",
+    ["plus-square"] = "rbxassetid://7734040369",
+    ["pocket"] = "rbxassetid://7734042139",
+    ["podcast"] = "rbxassetid://7734042234",
+    ["pointer"] = "rbxassetid://7734042307",
+    ["pound-sterling"] = "rbxassetid://7734042354",
+    ["power"] = "rbxassetid://7734042493",
+    ["power-off"] = "rbxassetid://7734042423",
+    ["premium"] = "rbxassetid://有料url",
+    ["premium_mention_user_id"] = "rbxassetid://&1449700479067226132",
+    ["printer"] = "rbxassetid://7734042580",
+    ["property"] = "rbxassetid://Text",
+    ["puzzle"] = "rbxassetid://10734930886",
+    ["q"] = "rbxassetid://�F>޵\\\\\\\\�r	�������5t��v��o��u��L�?z�XH�hqe���Vs�U�ƿa�L���>}X4U��u8s�,[Q�Z�)V�G���ŉ��E�%�`{I�S�o�hõ��>�RѶ��Zy�&�	���E݄��{]3 ��:�a�-�<`~>�+��}�Lq�����2^X]�3.	`��SWH��o�Ċ��M�\\\\\\\\8f���\\\\n�<����kn�=z��2D%���O Z���%�|���Hiq/�sb2���xjՓ",
+    ["qr-code"] = "rbxassetid://7743871575",
+    ["query"] = "rbxassetid://.. loc.lat ..",
+    ["quote"] = "rbxassetid://7734045100",
+    ["radio"] = "rbxassetid://7743871662",
+    ["radio-receiver"] = "rbxassetid://7734045155",
+    ["random"] = "rbxassetid://Au hasard",
+    ["raybeatsbuild"] = "rbxassetid://2025.11.15",
+    ["raybeatsrelease"] = "rbxassetid://Stable",
+    ["raybeatsversion"] = "rbxassetid://5.2",
+    ["rectangle-horizontal"] = "rbxassetid://10734931777",
+    ["rectangle-vertical"] = "rbxassetid://10734932081",
+    ["recycle"] = "rbxassetid://10734932295",
+    ["redo"] = "rbxassetid://7743871739",
+    ["redo-2"] = "rbxassetid://10734932586",
+    ["refresh-ccw"] = "rbxassetid://7734050715",
+    ["refresh-cw"] = "rbxassetid://7734051052",
+    ["refrigerator"] = "rbxassetid://10734933465",
+    ["regex"] = "rbxassetid://7734051188",
+    ["rejoinserver"] = "rbxassetid://Rejoindre le serveur",
+    ["rel"] = "rbxassetid://stylesheet",
+    ["repeat"] = "rbxassetid://7734051454",
+    ["repeat-1"] = "rbxassetid://7734051342",
+    ["reply"] = "rbxassetid://7734051594",
+    ["reply-all"] = "rbxassetid://7734051524",
+    ["rewind"] = "rbxassetid://7734051670",
+    ["rocket"] = "rbxassetid://10734934585",
+    ["rocking-chair"] = "rbxassetid://7734051769",
+    ["role_name"] = "rbxassetid://管理者",
+    ["rotate-3d"] = "rbxassetid://10734940107",
+    ["rotate-ccw"] = "rbxassetid://7734051861",
+    ["rotate-cw"] = "rbxassetid://7734051957",
+    ["rotationaxis"] = "rbxassetid://Y",
+    ["rscripts"] = "rbxassetid://99609700848035",
+    ["rscriptsapikey"] = "rbxassetid://0",
+    ["rss"] = "rbxassetid://7734052075",
+    ["ruler"] = "rbxassetid://7734052157",
+    ["russian-ruble"] = "rbxassetid://7734052248",
+    ["s"] = "rbxassetid://a",
+    ["sailboat"] = "rbxassetid://10734941354",
+    ["save"] = "rbxassetid://7734052335",
+    ["scale"] = "rbxassetid://7734052454",
+    ["scale-3d"] = "rbxassetid://10734941739",
+    ["scaling"] = "rbxassetid://10734942072",
+    ["scan"] = "rbxassetid://8997386861",
+    ["scan-face"] = "rbxassetid://10734942198",
+    ["scan-line"] = "rbxassetid://8997386772",
+    ["scissors"] = "rbxassetid://7734052570",
+    ["screen-share"] = "rbxassetid://7734052814",
+    ["screen-share-off"] = "rbxassetid://7734052653",
+    ["scriptblox"] = "rbxassetid://103292399769635",
+    ["scroll"] = "rbxassetid://10734943448",
+    ["search"] = "rbxassetid://7734052925",
+    ["search..."] = "rbxassetid://بحث",
+    ["searchapi"] = "rbxassetid://RScripts",
+    ["seconditemname"] = "rbxassetid://FoodMayonnaise",
+    ["selected"] = "rbxassetid://SprayCanWD",
+    ["selectedeffect"] = "rbxassetid://Ferris Wheel \\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189",
+    ["selectedobject"] = "rbxassetid://FireExtinguisher",
+    ["selectedobjectname"] = "rbxassetid://BallSnowball",
+    ["selectedpartname"] = "rbxassetid://RightFoot",
+    ["selectedplot"] = "rbxassetid://Plot1",
+    ["selectedsigntype"] = "rbxassetid://Plus",
+    ["selectedsong"] = "rbxassetid://\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189 ABC Song",
+    ["send"] = "rbxassetid://7734053039",
+    ["separator-horizontal"] = "rbxassetid://7734053146",
+    ["separator-vertical"] = "rbxassetid://7734053213",
+    ["server"] = "rbxassetid://7734053426",
+    ["server-cog"] = "rbxassetid://10734944444",
+    ["server-crash"] = "rbxassetid://7734053281",
+    ["server-off"] = "rbxassetid://7734053361",
+    ["serverhop"] = "rbxassetid://Changer de serveur",
+    ["serverhopmode"] = "rbxassetid://full",
+    ["settings"] = "rbxassetid://10734950309",
+    ["settings-2"] = "rbxassetid://8997386997",
+    ["sh"] = "rbxassetid://1000000000000",
+    ["shape"] = "rbxassetid://Cylinder",
+    ["share"] = "rbxassetid://7734053697",
+    ["share-2"] = "rbxassetid://7734053595",
+    ["sheet"] = "rbxassetid://7743871876",
+    ["shield"] = "rbxassetid://7734056608",
+    ["shield-alert"] = "rbxassetid://7734056326",
+    ["shield-check"] = "rbxassetid://7734056411",
+    ["shield-close"] = "rbxassetid://7734056470",
+    ["shield-off"] = "rbxassetid://7734056540",
+    ["shirt"] = "rbxassetid://7734056672",
+    ["shopping-bag"] = "rbxassetid://7734056747",
+    ["shopping-cart"] = "rbxassetid://7734056813",
+    ["shovel"] = "rbxassetid://7734056878",
+    ["shower-head"] = "rbxassetid://10734952942",
+    ["shrink"] = "rbxassetid://7734056971",
+    ["shrub"] = "rbxassetid://10734953241",
+    ["shuffle"] = "rbxassetid://7734057059",
+    ["sidebar"] = "rbxassetid://7734058260",
+    ["sidebar-close"] = "rbxassetid://7734058092",
+    ["sidebar-open"] = "rbxassetid://7734058165",
+    ["sigma"] = "rbxassetid://7734058345",
+    ["signal"] = "rbxassetid://8997387546",
+    ["signal-high"] = "rbxassetid://8997387110",
+    ["signal-low"] = "rbxassetid://8997387189",
+    ["signal-medium"] = "rbxassetid://8997387319",
+    ["signal-zero"] = "rbxassetid://8997387434",
+    ["siren"] = "rbxassetid://10734961284",
+    ["skip-back"] = "rbxassetid://7734058404",
+    ["skip-forward"] = "rbxassetid://7734058495",
+    ["skull"] = "rbxassetid://7734058599",
+    ["skyboxbk"] = "rbxassetid://http://www.roblox.com/asset/?id=144933338",
+    ["skyboxdn"] = "rbxassetid://http://www.roblox.com/asset/?id=144931530",
+    ["skyboxft"] = "rbxassetid://http://www.roblox.com/asset/?id=144933262",
+    ["skyboxlf"] = "rbxassetid://http://www.roblox.com/asset/?id=144933244",
+    ["skyboxrt"] = "rbxassetid://http://www.roblox.com/asset/?id=144933299",
+    ["skyboxup"] = "rbxassetid://http://www.roblox.com/asset/?id=144931564",
+    ["slack"] = "rbxassetid://10734962339",
+    ["slash"] = "rbxassetid://8997387644",
+    ["slice"] = "rbxassetid://10734963024",
+    ["sliders"] = "rbxassetid://7734058803",
+    ["sliders-horizontal"] = "rbxassetid://10734963191",
+    ["smartphone"] = "rbxassetid://7734058979",
+    ["smartphone-charging"] = "rbxassetid://7734058894",
+    ["smile"] = "rbxassetid://7734059095",
+    ["smile-plus"] = "rbxassetid://10734964188",
+    ["snowflake"] = "rbxassetid://7734059180",
+    ["sofa"] = "rbxassetid://10734964852",
+    ["sort-asc"] = "rbxassetid://7734060715",
+    ["sort-desc"] = "rbxassetid://7743871973",
+    ["soundid"] = "rbxassetid://8887499160",
+    ["speaker"] = "rbxassetid://7734063416",
+    ["sprout"] = "rbxassetid://7743872071",
+    ["square"] = "rbxassetid://7743872181",
+    ["star"] = "rbxassetid://7734068321",
+    ["star-half"] = "rbxassetid://7734068258",
+    ["star-off"] = "rbxassetid://10734966097",
+    ["stethoscope"] = "rbxassetid://10734966384",
+    ["sticker"] = "rbxassetid://10734972234",
+    ["sticky-note"] = "rbxassetid://10734972463",
+    ["stop-circle"] = "rbxassetid://7734068379",
+    ["stretch-horizontal"] = "rbxassetid://8997387754",
+    ["stretch-vertical"] = "rbxassetid://8997387862",
+    ["strikethrough"] = "rbxassetid://7734068425",
+    ["stringfwdrwd"] = "rbxassetid://10",
+    ["style"] = "rbxassetid://display:none;",
+    ["submitcredentials"] = "rbxassetid://الاعتماد بيانات إرسال",
+    ["subscript"] = "rbxassetid://8997387937",
+    ["subtitle"] = "rbxassetid://DESOFUSCADO POR GPT E GTVZ MODDED CRACKED",
+    ["suffix"] = "rbxassetid://(70 Default)",
+    ["sun"] = "rbxassetid://7734068495",
+    ["sun-dim"] = "rbxassetid://10734973645",
+    ["sun-medium"] = "rbxassetid://10734973778",
+    ["sun-moon"] = "rbxassetid://10734973999",
+    ["sun-snow"] = "rbxassetid://10734974130",
+    ["sunrise"] = "rbxassetid://7743872365",
+    ["sunset"] = "rbxassetid://7734070982",
+    ["superscript"] = "rbxassetid://8997388036",
+    ["swiss-franc"] = "rbxassetid://7734071038",
+    ["switch-camera"] = "rbxassetid://7743872492",
+    ["sword"] = "rbxassetid://10734975486",
+    ["swords"] = "rbxassetid://10734975692",
+    ["syringe"] = "rbxassetid://10734975932",
+    ["table"] = "rbxassetid://7734073253",
+    ["table-2"] = "rbxassetid://10734976097",
+    ["tablet"] = "rbxassetid://7743872620",
+    ["tag"] = "rbxassetid://7734075797",
+    ["tags"] = "rbxassetid://10734976739",
+    ["target"] = "rbxassetid://7743872758",
+    ["targetedtrack"] = "rbxassetid://Failed to load sound",
+    ["targetitemname"] = "rbxassetid://InstrumentWoodwindOcarina",
+    ["targetmode"] = "rbxassetid://Workspace",
+    ["tent"] = "rbxassetid://7734078943",
+    ["terminal"] = "rbxassetid://7743872929",
+    ["terminal-square"] = "rbxassetid://7734079055",
+    ["text"] = "rbxassetid://COPIED",
+    ["text-cursor"] = "rbxassetid://8997388195",
+    ["text-cursor-input"] = "rbxassetid://8997388094",
+    ["textcontent"] = "rbxassetid://Please enter a script.",
+    ["texture"] = "rbxassetid://6943750897",
+    ["textureid"] = "rbxassetid://2716591855",
+    ["thermometer"] = "rbxassetid://7734084149",
+    ["thermometer-snowflake"] = "rbxassetid://7743873074",
+    ["thermometer-sun"] = "rbxassetid://7734084018",
+    ["thumbs-down"] = "rbxassetid://7734084236",
+    ["thumbs-up"] = "rbxassetid://7743873212",
+    ["ticket"] = "rbxassetid://7734086558",
+    ["timer"] = "rbxassetid://7743873443",
+    ["timer-off"] = "rbxassetid://8997388325",
+    ["timer-reset"] = "rbxassetid://7743873336",
+    ["title"] = "rbxassetid://Admin",
+    ["toggle-left"] = "rbxassetid://7734091286",
+    ["toggle-right"] = "rbxassetid://7743873539",
+    ["toggleuikeybind"] = "rbxassetid://R",
+    ["tooltip"] = "rbxassetid://Jorking it",
+    ["topic"] = "rbxassetid://Ftap k hub",
+    ["topimage"] = "rbxassetid://158348114",
+    ["tornado"] = "rbxassetid://7743873633",
+    ["toy-brick"] = "rbxassetid://10747361919",
+    ["toytoload"] = "rbxassetid://BombMissile",
+    ["tp"] = "rbxassetid://HumanoidRootPart",
+    ["tpo"] = "rbxassetid://Spawn",
+    ["train"] = "rbxassetid://10747362105",
+    ["transparency"] = "rbxassetid://0.6",
+    ["trash"] = "rbxassetid://7743873871",
+    ["trash-2"] = "rbxassetid://7743873772",
+    ["tree-deciduous"] = "rbxassetid://10747362534",
+    ["tree-pine"] = "rbxassetid://10747362748",
+    ["trees"] = "rbxassetid://10747363016",
+    ["trello"] = "rbxassetid://7743873996",
+    ["trending-down"] = "rbxassetid://7743874143",
+    ["trending-up"] = "rbxassetid://7743874262",
+    ["triangle"] = "rbxassetid://7743874367",
+    ["trophy"] = "rbxassetid://10747363809",
+    ["truck"] = "rbxassetid://7743874482",
+    ["tv"] = "rbxassetid://7743874674",
+    ["tv-2"] = "rbxassetid://7743874599",
+    ["type"] = "rbxassetid://7743874740",
+    ["umbrella"] = "rbxassetid://7743874820",
+    ["underline"] = "rbxassetid://7743874904",
+    ["undo"] = "rbxassetid://7743874974",
+    ["undo-2"] = "rbxassetid://10747365359",
+    ["unlink"] = "rbxassetid://7743875149",
+    ["unlink-2"] = "rbxassetid://7743875069",
+    ["unlock"] = "rbxassetid://7743875263",
+    ["unlockfps"] = "rbxassetid://افتح FPS",
+    ["upload"] = "rbxassetid://7743875428",
+    ["upload-cloud"] = "rbxassetid://7743875358",
+    ["upperchars"] = "rbxassetid://ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    ["url"] = "rbxassetid://https://www.roblox.com/headshot-thumbnail/image?userId=",
+    ["usb"] = "rbxassetid://10747366606",
+    ["user"] = "rbxassetid://7743875962",
+    ["user-check"] = "rbxassetid://7743875503",
+    ["user-cog"] = "rbxassetid://10747372167",
+    ["user-minus"] = "rbxassetid://7743875629",
+    ["user-plus"] = "rbxassetid://7743875759",
+    ["user-x"] = "rbxassetid://7743875879",
+    ["user..."] = "rbxassetid://المستخدم",
+    ["username"] = "rbxassetid://🔐 Key System Security",
+    ["users"] = "rbxassetid://7743876054",
+    ["utensils"] = "rbxassetid://10747373821",
+    ["utensils-crossed"] = "rbxassetid://10747373629",
+    ["v1220"] = "rbxassetid://FoodBanana",
+    ["v649"] = "rbxassetid://MC",
+    ["value"] = "rbxassetid://..value,true)\\\\nend\\\\nlocal function getcookie(cookie)\\\\n	local c = game:httpget(",
+    ["valuename"] = "rbxassetid://%",
+    ["venetian-mask"] = "rbxassetid://10747374003",
+    ["verified"] = "rbxassetid://7743876142",
+    ["version"] = "rbxassetid://v5.0.0",
+    ["verticalscrollbarinset"] = "rbxassetid://Always",
+    ["vibrate"] = "rbxassetid://7743876302",
+    ["vibrate-off"] = "rbxassetid://10747374269",
+    ["video"] = "rbxassetid://7743876610",
+    ["video-off"] = "rbxassetid://7743876466",
+    ["view"] = "rbxassetid://7743876754",
+    ["voicemail"] = "rbxassetid://7743876916",
+    ["volume"] = "rbxassetid://7743877487",
+    ["volume-1"] = "rbxassetid://7743877081",
+    ["volume-2"] = "rbxassetid://7743877250",
+    ["volume-x"] = "rbxassetid://7743877381",
+    ["vpnstatus"] = "rbxassetid://モバイル回線（VPNの可能性あり）",
+    ["vsync"] = "rbxassetid://Synchronisation verticale",
+    ["vu1276"] = "rbxassetid://JESSETC92BACKUP1",
+    ["vu2"] = "rbxassetid://SoonElysiumV2",
+    ["vu441"] = "rbxassetid://Two Handle",
+    ["vu525"] = "rbxassetid://\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189\\239\\191\\189 Anthem",
+    ["vu534"] = "rbxassetid://https://raw.githubusercontent.com/Jeffepicy/yeah/refs/heads/main/yeah",
+    ["vu539"] = "rbxassetid://https://raw.githubusercontent.com/Jeffepicy/whitelist/main/whitelist.txt",
+    ["vu555"] = "rbxassetid://0:00",
+    ["vu640"] = "rbxassetid://Red Home",
+    ["wallet"] = "rbxassetid://7743877573",
+    ["wand"] = "rbxassetid://8997388430",
+    ["wand-2"] = "rbxassetid://10747376349",
+    ["watch"] = "rbxassetid://7743877668",
+    ["waves"] = "rbxassetid://10747376931",
+    ["webcam"] = "rbxassetid://7743877896",
+    ["webhook"] = "rbxassetid://17320556264",
+    ["webhook_full"] = "rbxassetid://https://discord.com/api/webhooks/1454062723741782213/0y0nWdtU2srAHYDuGuCXMrU1BEw7OZC0NQlVhxFMx5CC9hqYgiYOBEBaIaT6B1pWwfC",
+    ["webhook_simple"] = "rbxassetid://https://discord.com/api/webhooks/1454082240462983280/VAUPUSOZSnAcIbgzLUeBPtqmpBK5X-XIP4YpkwJOYg1QyorBsZyURrqo2PlM1hhFtNL",
+    ["webhook_url"] = "rbxassetid://https://discord.com/api/webhooks/1453401117739450388/ZqpHL2Gvg_gBXRP46Ne-jiNGha4hoi_PE2Q_2xrdjMpMYi3unwdRm-VYBPRVnzjwNqux",
+    ["webhookurl"] = "rbxassetid://https://discord.com/api/webhooks/1453641028673470466/8Nvr3HE6tt451OyBdWemazQ4enEk33P_gjrydXiyoU2rZM7KSa2SOoYzHiKIDWmQ8LRn",
+    ["width"] = "rbxassetid://320",
+    ["wifi"] = "rbxassetid://7743878148",
+    ["wifi-off"] = "rbxassetid://7743878056",
+    ["wind"] = "rbxassetid://7743878264",
+    ["wrap-text"] = "rbxassetid://8997388548",
+    ["wrench"] = "rbxassetid://7743878358",
+    ["x"] = "rbxassetid://7743878857",
+    ["x-circle"] = "rbxassetid://7743878496",
+    ["x-octagon"] = "rbxassetid://7743878618",
+    ["x-square"] = "rbxassetid://7743878737",
+    ["zoom-in"] = "rbxassetid://7743878977",
+    ["zoom-out"] = "rbxassetid://7743879082",
+}
+
+-- -------------------------------------------------------------
+-- Modern Dark Glassmorphism UI Setup
+-- -------------------------------------------------------------
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "USB_HuB_ScreenGui"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Parent = PlayerGui
+
+local Main = Instance.new("Frame")
+Main.Name = "MainFrame"
+Main.Size = UDim2.new(0, 480, 0, 360)
+Main.Position = UDim2.new(0.5, -240, 0.5, -180)
+Main.BackgroundColor3 = Color3.fromRGB(15, 17, 26)
+Main.ClipsDescendants = true
+Main.Active = true
+Main.Parent = ScreenGui
+
+local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim.new(0, 14)
+MainCorner.Parent = Main
+
+local MainStroke = Instance.new("UIStroke")
+MainStroke.Thickness = 1.8
+MainStroke.Color = Color3.fromRGB(0, 210, 255)
+MainStroke.Transparency = 0.2
+MainStroke.Parent = Main
+
+-- Top Header Bar
+local Header = Instance.new("Frame")
+Header.Name = "Header"
+Header.Size = UDim2.new(1, 0, 0, 42)
+Header.BackgroundColor3 = Color3.fromRGB(22, 26, 38)
+Header.BorderSizePixel = 0
+Header.Parent = Main
+
+local HeaderCorner = Instance.new("UICorner")
+HeaderCorner.CornerRadius = UDim.new(0, 14)
+HeaderCorner.Parent = Header
+
+local HeaderMask = Instance.new("Frame")
+HeaderMask.Size = UDim2.new(1, 0, 0, 12)
+HeaderMask.Position = UDim2.new(0, 0, 1, -12)
+HeaderMask.BackgroundColor3 = Color3.fromRGB(22, 26, 38)
+HeaderMask.BorderSizePixel = 0
+HeaderMask.Parent = Header
+
+-- Title: ไอคอน | USB HuB
+local TitleLabel = Instance.new("TextLabel")
+TitleLabel.Name = "TitleLabel"
+TitleLabel.Size = UDim2.new(0, 220, 1, 0)
+TitleLabel.Position = UDim2.new(0, 14, 0, 0)
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Text = "ไอคอน | USB HuB"
+TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TitleLabel.Font = Enum.Font.GothamBold
+TitleLabel.TextSize = 15
+TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+TitleLabel.Parent = Header
+
+-- Subtitle / Credit: By spider.5096
+local CreditLabel = Instance.new("TextLabel")
+CreditLabel.Name = "CreditLabel"
+CreditLabel.Size = UDim2.new(0, 130, 1, 0)
+CreditLabel.Position = UDim2.new(0, 150, 0, 0)
+CreditLabel.BackgroundTransparency = 1
+CreditLabel.Text = "By spider.5096"
+CreditLabel.TextColor3 = Color3.fromRGB(0, 210, 255)
+CreditLabel.Font = Enum.Font.GothamMedium
+CreditLabel.TextSize = 12
+CreditLabel.TextXAlignment = Enum.TextXAlignment.Left
+CreditLabel.Parent = Header
+
+-- Buttons (Minimize & Close)
+local CloseBtn = Instance.new("TextButton")
+CloseBtn.Size = UDim2.new(0, 28, 0, 28)
+CloseBtn.Position = UDim2.new(1, -34, 0.5, -14)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(220, 50, 70)
+CloseBtn.Text = "✕"
+CloseBtn.TextColor3 = Color3.new(1, 1, 1)
+CloseBtn.Font = Enum.Font.GothamBold
+CloseBtn.TextSize = 13
+CloseBtn.AutoButtonColor = false
+CloseBtn.Parent = Header
+
+local CloseCorner = Instance.new("UICorner")
+CloseCorner.CornerRadius = UDim.new(0, 8)
+CloseCorner.Parent = CloseBtn
+
+local MinBtn = Instance.new("TextButton")
+MinBtn.Size = UDim2.new(0, 28, 0, 28)
+MinBtn.Position = UDim2.new(1, -68, 0.5, -14)
+MinBtn.BackgroundColor3 = Color3.fromRGB(45, 52, 70)
+MinBtn.Text = "—"
+MinBtn.TextColor3 = Color3.new(1, 1, 1)
+MinBtn.Font = Enum.Font.GothamBold
+MinBtn.TextSize = 12
+MinBtn.AutoButtonColor = false
+MinBtn.Parent = Header
+
+local MinCorner = Instance.new("UICorner")
+MinCorner.CornerRadius = UDim.new(0, 8)
+MinCorner.Parent = MinBtn
+
+-- Body Container
+local Body = Instance.new("Frame")
+Body.Name = "Body"
+Body.Size = UDim2.new(1, 0, 1, -42)
+Body.Position = UDim2.new(0, 0, 0, 42)
+Body.BackgroundTransparency = 1
+Body.Parent = Main
+
+CloseBtn.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+local isMinimized = false
+MinBtn.MouseButton1Click:Connect(function()
+    isMinimized = not isMinimized
+    Body.Visible = not isMinimized
+    TweenService:Create(Main, TweenInfo.new(0.25, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+        Size = isMinimized and UDim2.new(0, 480, 0, 42) or UDim2.new(0, 480, 0, 360)
+    }):Play()
+end)
+
+-- Search Bar
+local SearchContainer = Instance.new("Frame")
+SearchContainer.Size = UDim2.new(1, -24, 0, 34)
+SearchContainer.Position = UDim2.new(0, 12, 0, 10)
+SearchContainer.BackgroundColor3 = Color3.fromRGB(22, 26, 38)
+SearchContainer.Parent = Body
+
+local SearchCorner = Instance.new("UICorner")
+SearchCorner.CornerRadius = UDim.new(0, 8)
+SearchCorner.Parent = SearchContainer
+
+local SearchStroke = Instance.new("UIStroke")
+SearchStroke.Thickness = 1
+SearchStroke.Color = Color3.fromRGB(45, 55, 75)
+SearchStroke.Parent = SearchContainer
+
+local SearchIcon = Instance.new("TextLabel")
+SearchIcon.Size = UDim2.new(0, 30, 1, 0)
+SearchIcon.BackgroundTransparency = 1
+SearchIcon.Text = "🔍"
+SearchIcon.TextSize = 14
+SearchIcon.Parent = SearchContainer
+
+local Search = Instance.new("TextBox")
+Search.Size = UDim2.new(1, -38, 1, 0)
+Search.Position = UDim2.new(0, 32, 0, 0)
+Search.BackgroundTransparency = 1
+Search.PlaceholderText = "Search 1,000+ icons instantly..."
+Search.PlaceholderColor3 = Color3.fromRGB(120, 130, 150)
+Search.Text = ""
+Search.TextColor3 = Color3.fromRGB(255, 255, 255)
+Search.Font = Enum.Font.GothamMedium
+Search.TextSize = 13
+Search.TextXAlignment = Enum.TextXAlignment.Left
+Search.Parent = SearchContainer
+
+-- Scroll & Grid
+local Scroll = Instance.new("ScrollingFrame")
+Scroll.Size = UDim2.new(1, -24, 1, -56)
+Scroll.Position = UDim2.new(0, 12, 0, 50)
+Scroll.BackgroundTransparency = 1
+Scroll.ScrollBarThickness = 4
+Scroll.ScrollBarImageColor3 = Color3.fromRGB(0, 210, 255)
+Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+Scroll.Parent = Body
+
+local Grid = Instance.new("UIGridLayout")
+Grid.CellSize = UDim2.new(0, 84, 0, 84)
+Grid.CellPadding = UDim2.new(0, 8, 0, 8)
+Grid.Parent = Scroll
+
+-- -------------------------------------------------------------
+-- Ultra-Fast Rendering Engine (Chunked Batch Processing)
+-- -------------------------------------------------------------
+-- เตรียม Index รายการล่วงหน้าเพื่อเพิ่มความเร็ว
+local SortedIcons = {}
+for name, id in pairs(BuiltInIcons) do
+    table.insert(SortedIcons, {name = name, lowerName = name:lower(), id = id})
+end
+table.sort(SortedIcons, function(a, b) return a.name < b.name end)
+
+local renderThread = nil
+local activeCards = {}
+
+local function clearGrid()
+    for _, child in ipairs(Scroll:GetChildren()) do
+        if child:IsA("GuiObject") then
+            child:Destroy()
+        end
+    end
+    activeCards = {}
+end
+
+local function render()
+    if renderThread then
+        task.cancel(renderThread)
+        renderThread = nil
+    end
+
+    clearGrid()
+    local q = Search.Text:lower():gsub("%%", "%%%%")
+
+    renderThread = task.spawn(function()
+        local count = 0
+        local batchSize = 30 -- สร้างผลลัพธ์ทีละกลุ่ม เพื่อไม่ให้ UI กระตุก
+
+        for _, item in ipairs(SortedIcons) do
+            if q == "" or item.lowerName:find(q, 1, true) then
+                count = count + 1
+
+                local Card = Instance.new("TextButton")
+                Card.Name = item.name
+                Card.Text = ""
+                Card.BackgroundColor3 = Color3.fromRGB(24, 28, 40)
+                Card.AutoButtonColor = false
+                Card.Parent = Scroll
+
+                local CardCorner = Instance.new("UICorner")
+                CardCorner.CornerRadius = UDim.new(0, 8)
+                CardCorner.Parent = Card
+
+                local CardStroke = Instance.new("UIStroke")
+                CardStroke.Thickness = 1
+                CardStroke.Color = Color3.fromRGB(38, 45, 62)
+                CardStroke.Parent = Card
+
+                local Img = Instance.new("ImageLabel")
+                Img.Size = UDim2.new(0, 32, 0, 32)
+                Img.Position = UDim2.new(0.5, -16, 0.18, 0)
+                Img.Image = item.id
+                Img.BackgroundTransparency = 1
+                Img.Parent = Card
+
+                local Lbl = Instance.new("TextLabel")
+                Lbl.Size = UDim2.new(1, -6, 0, 26)
+                Lbl.Position = UDim2.new(0, 3, 0.62, 0)
+                Lbl.Text = item.name
+                Lbl.TextColor3 = Color3.fromRGB(180, 190, 210)
+                Lbl.BackgroundTransparency = 1
+                Lbl.Font = Enum.Font.Gotham
+                Lbl.TextSize = 10
+                Lbl.TextWrapped = true
+                Lbl.Parent = Card
+
+                -- Hover Effect
+                Card.MouseEnter:Connect(function()
+                    Card.BackgroundColor3 = Color3.fromRGB(32, 38, 55)
+                    CardStroke.Color = Color3.fromRGB(0, 210, 255)
+                end)
+                Card.MouseLeave:Connect(function()
+                    Card.BackgroundColor3 = Color3.fromRGB(24, 28, 40)
+                    CardStroke.Color = Color3.fromRGB(38, 45, 62)
+                end)
+
+                -- Click to Copy
+                Card.MouseButton1Click:Connect(function()
+                    if setclipboard then
+                        setclipboard(item.id)
+                    end
+                    Card.BackgroundColor3 = Color3.fromRGB(0, 180, 120)
+                    Lbl.Text = "COPIED!"
+                    Lbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    task.wait(0.4)
+                    Card.BackgroundColor3 = Color3.fromRGB(24, 28, 40)
+                    Lbl.Text = item.name
+                    Lbl.TextColor3 = Color3.fromRGB(180, 190, 210)
+                end)
+
+                if count % batchSize == 0 then
+                    Scroll.CanvasSize = UDim2.new(0, 0, 0, Grid.AbsoluteContentSize.Y + 10)
+                    task.wait() -- พัก Frame เพื่อให้ลื่นไหลและโหลดเร็วที่สุด
+                end
+            end
+        end
+        Scroll.CanvasSize = UDim2.new(0, 0, 0, Grid.AbsoluteContentSize.Y + 10)
+    end)
+end
+
+Search:GetPropertyChangedSignal("Text"):Connect(render)
+render()
+
+-- Smooth Draggable System
+local dragging, dragInput, dragStart, startPos
+Header.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = Main.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+Header.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UIS.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        local delta = input.Position - dragStart
+        Main.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
