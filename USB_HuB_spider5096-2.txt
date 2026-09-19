@@ -4,12 +4,10 @@ local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- ลบ GUI เก่าถ้ามีอยู่
 if PlayerGui:FindFirstChild("USB_HuB_ScreenGui") then
     PlayerGui["USB_HuB_ScreenGui"]:Destroy()
 end
 
--- ★ BuiltInIcons (ดึงครบถ้วน 1036 รายการ ไม่ตัดทอนใดๆ ทั้งสิ้น)
 local BuiltInIcons = {
     ["..audioposition.seconds\\\\nreturn\\\\nend\\\\nobj.text = audioposition.minutes.."] = "rbxassetid://..audioPosition.seconds\\\\nend\\\\nlocal playpause = createIcon(",
     ["01 01"] = "rbxassetid://🎆",
@@ -1324,7 +1322,7 @@ local function render()
 
                 if count % batchSize == 0 then
                     Scroll.CanvasSize = UDim2.new(0, 0, 0, Grid.AbsoluteContentSize.Y + 10)
-                    task.wait() -- พัก Frame เพื่อให้ลื่นไหลและโหลดเร็วที่สุด
+                    task.wait()
                 end
             end
         end
